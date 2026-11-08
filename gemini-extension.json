@@ -1,0 +1,15 @@
+{
+  "name": "webtwizz",
+  "version": "1.0.0",
+  "description": "Build, change and publish websites and web apps with WebTwizz from Gemini CLI",
+  "contextFileName": "GEMINI.md",
+  "mcpServers": {
+    "webtwizz": {
+      "httpUrl": "https://app.webtwizz.com/mcp",
+      "oauth": {
+        "enabled": true
+      },
+      "timeout": 60000
+    }
+  }
+}

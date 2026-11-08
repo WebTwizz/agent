@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "webtwizz": {
+      "type": "http",
+      "url": "https://app.webtwizz.com/mcp"
+    }
+  }
+}
