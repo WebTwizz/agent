@@ -1,5 +1,6 @@
 {
   "name": "webtwizz",
+  "displayName": "WebTwizz",
   "version": "1.0.0",
   "description": "Build and change websites and web apps with WebTwizz from your AI agent: landing pages, online stores, booking sites, portfolios and web apps with sign-ins and a database. Publish to a webtwizz.app address or your own domain, undo changes, edit site data and sync with GitHub.",
   "author": {
@@ -21,5 +22,8 @@
     "mcp"
   ],
   "icon": "assets/icon.png",
-  "privacyPolicyUrl": "https://webtwizz.com/privacy"
+  "privacyPolicyUrl": "https://webtwizz.com/privacy",
+  "documentationUrl": "https://docs.webtwizz.com/ai-assistants",
+  "supportUrl": "https://webtwizz.com/support",
+  "termsOfServiceUrl": "https://webtwizz.com/terms"
 }
