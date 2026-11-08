@@ -1,6 +1,6 @@
 ---
 name: webtwizz
-description: Build, change and publish websites and web apps with WebTwizz through its MCP server. Use when the user wants a website, landing page, online store, booking site, portfolio or web app built or changed, wants a site published or put on their own domain, or asks about their WebTwizz sites, data, versions or credits.
+description: "Build, change and publish websites and web apps with WebTwizz through its MCP server. Use when the user wants a website, landing page, online store, booking site, portfolio or web app built or changed, wants a site published or put on their own domain, or asks about their WebTwizz sites, data, versions or credits."
 last-updated: 2026-11-08
 ---
 
