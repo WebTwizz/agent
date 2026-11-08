@@ -20,8 +20,9 @@ Any other MCP client needs only the URL, `https://app.webtwizz.com/mcp`. The fir
 | `.claude-plugin/`, `.mcp.json` | The Claude Code plugin, and a marketplace so you can install it from this repo |
 | `plugin.json`, `mcp.json` | The [Agent Plugins](https://agent-plugins.org) package, for Cursor and Hermes Agent |
 | `gemini-extension.json`, `GEMINI.md` | The Gemini CLI extension |
+| [`hermes/`](./hermes) | The Hermes Agent package, which signs in through `mcp-remote` |
 
-The MCP server is hosted by WebTwizz. This repo holds configuration and the skill only, with no code that runs on your machine.
+The MCP server is hosted by WebTwizz. This repo holds configuration and the skill only, with no code of its own.
 
 ## Install
 
@@ -30,6 +31,7 @@ The MCP server is hosted by WebTwizz. This repo holds configuration and the skil
 | Claude, ChatGPT | From the app directory, [below](#claude) |
 | Claude Code | `/plugin marketplace add WebTwizz/agent`, then `/plugin install webtwizz@webtwizz` |
 | Gemini CLI | `gemini extensions install https://github.com/WebTwizz/agent` |
+| Hermes Agent | `hermes plugins install webtwizz`, see [`hermes/`](./hermes) |
 | Any agent with skills | `npx skills add WebTwizz/agent` |
 | Cursor, Codex, VS Code or any MCP client | Add `https://app.webtwizz.com/mcp` as a remote server, [below](#setup-by-client) |
 

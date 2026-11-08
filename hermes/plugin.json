@@ -1,0 +1,33 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "webtwizz",
+  "version": "1.0.0",
+  "description": "Build, change and publish websites and web apps with WebTwizz from Hermes Agent: landing pages, online stores, booking sites and web apps with sign-ins and a database. Signs in to your WebTwizz account in the browser.",
+  "author": {
+    "name": "WebTwizz",
+    "email": "support@webtwizz.com",
+    "url": "https://webtwizz.com"
+  },
+  "homepage": "https://webtwizz.com/mcp",
+  "repository": "https://github.com/WebTwizz/agent",
+  "license": "MIT",
+  "keywords": [
+    "webtwizz",
+    "website-builder",
+    "app-builder",
+    "websites",
+    "web-apps",
+    "landing-pages",
+    "publishing",
+    "mcp"
+  ],
+  "extensions": {
+    "com.nousresearch.hermes": {
+      "servers": {
+        "webtwizz": {
+          "trust": "untrusted"
+        }
+      }
+    }
+  }
+}
