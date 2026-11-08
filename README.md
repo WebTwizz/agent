@@ -10,7 +10,7 @@ WebTwizz runs a hosted MCP server at `https://app.webtwizz.com/mcp`. Your agent 
 claude mcp add --transport http webtwizz https://app.webtwizz.com/mcp
 ```
 
-Any other MCP client needs only the URL, `https://app.webtwizz.com/mcp`. The first call opens a browser to sign in to WebTwizz or create a free account. There's nothing to install and no key to paste.
+Any other MCP client needs only the URL, `https://app.webtwizz.com/mcp`. The first call opens a browser to sign in to WebTwizz or [create a free account](https://app.webtwizz.com/register). There's nothing to install and no key to paste.
 
 ## What's in this repo
 
@@ -20,6 +20,7 @@ Any other MCP client needs only the URL, `https://app.webtwizz.com/mcp`. The fir
 | `.claude-plugin/`, `.mcp.json` | The Claude Code plugin, and a marketplace so you can install it from this repo |
 | `plugin.json`, `mcp.json` | The [Agent Plugins](https://agent-plugins.org) package, for Cursor and Hermes Agent |
 | `gemini-extension.json`, `GEMINI.md` | The Gemini CLI extension |
+| `lhm.plugin.json` | The LobeHub marketplace listing |
 | [`hermes/`](./hermes) | The Hermes Agent package, which signs in through `mcp-remote` |
 
 The MCP server is hosted by WebTwizz. This repo holds configuration and the skill only, with no code of its own.

@@ -19,7 +19,7 @@ If tools like `create-site` and `list-sites` aren't available, the server isn't 
 - **Cursor:** add `{"mcpServers": {"webtwizz": {"url": "https://app.webtwizz.com/mcp"}}}` to `~/.cursor/mcp.json`, then click Login next to WebTwizz.
 - **Any other MCP client:** add `https://app.webtwizz.com/mcp` as a remote HTTP server and choose OAuth if it asks how to sign in.
 
-Signing in opens a browser. A free WebTwizz account is enough to start, and the account needs a verified email address before WebTwizz can build or change anything.
+Signing in opens a browser. A free WebTwizz account is enough to start: the user can [sign up here](https://app.webtwizz.com/register) or during the sign-in. The account needs a verified email address before WebTwizz can build or change anything.
 
 ## How the work runs
 

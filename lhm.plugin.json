@@ -1,0 +1,3659 @@
+{
+  "identifier": "webtwizz",
+  "name": "WebTwizz",
+  "version": "1.0.0",
+  "description": "Build, change and publish websites and web apps with WebTwizz from your AI agent: landing pages, online stores, booking sites, portfolios and web apps with sign-ins and a database. Publish to a webtwizz.app address or your own domain, undo changes, edit site data and sync with GitHub. Hosted server, sign in with OAuth.",
+  "author": "WebTwizz",
+  "authorUrl": "https://webtwizz.com",
+  "homepage": "https://webtwizz.com/mcp",
+  "cloudEndpoint": "https://app.webtwizz.com/mcp",
+  "category": "developer",
+  "icon": "https://raw.githubusercontent.com/WebTwizz/agent/main/assets/icon.png",
+  "tags": [
+    "website-builder",
+    "web-apps",
+    "landing-pages",
+    "publishing",
+    "webtwizz"
+  ],
+  "tools": [
+    {
+      "name": "create-site",
+      "title": "New site",
+      "description": "Use this when the user wants an idea or this conversation turned into a real website or web app with WebTwizz. Creates a new WebTwizz project from a brief, and optionally the user's pictures or a website to start from, and starts building it right away. The card shows the build live; the site opens in WebTwizz for visual editing. Uses the account's WebTwizz credits, and each call makes another new site.",
+      "inputSchema": {
+        "properties": {
+          "brief": {
+            "description": "Everything WebTwizz needs to build the site, written from the conversation: what it is, who it is for, the pages and features, and any look, copy or brand details the user gave.",
+            "type": "string"
+          },
+          "name": {
+            "description": "A short project name of two to four words.",
+            "type": "string"
+          },
+          "reference_url": {
+            "description": "A website to work from: the user's current site to redesign, or a site they want theirs to look like. WebTwizz opens it and builds from it.",
+            "type": "string"
+          },
+          "images": {
+            "description": "Pictures for the site: photos or a logo the user shared, images made in this conversation, or a screenshot of a design to match.",
+            "items": {
+              "properties": {
+                "download_url": {
+                  "type": "string"
+                },
+                "file_id": {
+                  "type": "string"
+                },
+                "mime_type": {
+                  "type": "string"
+                },
+                "file_name": {
+                  "type": "string"
+                }
+              },
+              "type": "object",
+              "required": [
+                "download_url",
+                "file_id"
+              ]
+            },
+            "type": "array"
+          },
+          "files": {
+            "description": "Other files from this conversation the site should use: SVG logos, or documents like a menu, price list or notes (PDF, Word or text), which WebTwizz reads for their content.",
+            "items": {
+              "properties": {
+                "download_url": {
+                  "type": "string"
+                },
+                "file_id": {
+                  "type": "string"
+                },
+                "mime_type": {
+                  "type": "string"
+                },
+                "file_name": {
+                  "type": "string"
+                }
+              },
+              "type": "object",
+              "required": [
+                "download_url",
+                "file_id"
+              ]
+            },
+            "type": "array"
+          },
+          "workspace_id": {
+            "description": "The workspace to create it in, from get-account. Leave out for the user's own workspace.",
+            "type": "string"
+          },
+          "template": {
+            "description": "A template slug from list-templates to start from instead of a blank project.",
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "brief"
+        ]
+      },
+      "outputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "preview_url": {
+            "type": "string"
+          },
+          "live_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "live_frame_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "open_url": {
+            "type": "string"
+          },
+          "job_id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "status": {
+            "description": "queued, starting, building, done, needs_input, failed or stopped",
+            "type": "string"
+          },
+          "stage": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "latest": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "steps": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "files_changed": {
+            "type": "integer"
+          },
+          "summary": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "choices": {
+            "description": "When the summary ends by offering numbered options: those options, for the user to pick one",
+            "items": {
+              "type": "string"
+            },
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "question": {
+            "properties": {
+              "question": {
+                "type": "string"
+              },
+              "options": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "multiple": {
+                "description": "More than one option can be picked",
+                "type": "boolean"
+              },
+              "more": {
+                "description": "Further questions asked at the same time; answer them all in one edit-site message",
+                "items": {
+                  "properties": {
+                    "question": {
+                      "type": "string"
+                    },
+                    "options": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "multiple": {
+                      "type": "boolean"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "elapsed_seconds": {
+            "type": "integer"
+          },
+          "plan": {
+            "items": {
+              "properties": {
+                "step": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "confirmation": {
+            "description": "Set while the build waits for the user to approve something; answer with confirm-action",
+            "properties": {
+              "action": {
+                "type": "string"
+              },
+              "detail": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "follow_ups": {
+            "description": "Things the user still has to do in WebTwizz, like connecting a database or adding a key",
+            "items": {
+              "properties": {
+                "kind": {
+                  "type": "string"
+                },
+                "text": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "checks": {
+            "properties": {
+              "status": {
+                "type": "string"
+              },
+              "passed": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "failed": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "preview_ready": {
+            "description": "Whether the draft preview is running right now",
+            "type": "boolean"
+          },
+          "undo_guard": {
+            "description": "Pass as only_if_latest when undoing, so newer work is never lost",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "compiling": {
+            "description": "The preview is still updating with the finished change",
+            "type": "boolean"
+          },
+          "undo_point_id": {
+            "description": "Pass to restore-version to undo this change; only set while nothing has changed since",
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "name",
+          "preview_url",
+          "open_url",
+          "job_id",
+          "kind",
+          "status",
+          "steps",
+          "files_changed",
+          "elapsed_seconds",
+          "follow_ups",
+          "preview_ready"
+        ]
+      },
+      "annotations": {
+        "title": "New site",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "edit-site",
+      "title": "Site change",
+      "description": "Use this when the user wants to change one of their WebTwizz sites: new sections or pages, copy, design, features, fixes, or an answer to a question WebTwizz asked. Sends the request to the site's WebTwizz AI, which edits the site, and shows the work live on the card. Uses the account's WebTwizz credits, and each call starts another change.",
+      "inputSchema": {
+        "properties": {
+          "site_id": {
+            "description": "The site's id, or its name.",
+            "type": "string"
+          },
+          "request": {
+            "description": "What to change, in the user's words plus any detail from the conversation that helps.",
+            "type": "string"
+          },
+          "reference_url": {
+            "description": "A website the change should follow, like a page whose layout or style the user wants.",
+            "type": "string"
+          },
+          "images": {
+            "description": "Pictures for the site: photos or a logo the user shared, images made in this conversation, or a screenshot of a design to match.",
+            "items": {
+              "properties": {
+                "download_url": {
+                  "type": "string"
+                },
+                "file_id": {
+                  "type": "string"
+                },
+                "mime_type": {
+                  "type": "string"
+                },
+                "file_name": {
+                  "type": "string"
+                }
+              },
+              "type": "object",
+              "required": [
+                "download_url",
+                "file_id"
+              ]
+            },
+            "type": "array"
+          },
+          "files": {
+            "description": "Other files from this conversation the site should use: SVG logos, or documents like a menu, price list or notes (PDF, Word or text), which WebTwizz reads for their content.",
+            "items": {
+              "properties": {
+                "download_url": {
+                  "type": "string"
+                },
+                "file_id": {
+                  "type": "string"
+                },
+                "mime_type": {
+                  "type": "string"
+                },
+                "file_name": {
+                  "type": "string"
+                }
+              },
+              "type": "object",
+              "required": [
+                "download_url",
+                "file_id"
+              ]
+            },
+            "type": "array"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "request"
+        ]
+      },
+      "outputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "preview_url": {
+            "type": "string"
+          },
+          "live_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "live_frame_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "open_url": {
+            "type": "string"
+          },
+          "job_id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "status": {
+            "description": "queued, starting, building, done, needs_input, failed or stopped",
+            "type": "string"
+          },
+          "stage": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "latest": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "steps": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "files_changed": {
+            "type": "integer"
+          },
+          "summary": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "choices": {
+            "description": "When the summary ends by offering numbered options: those options, for the user to pick one",
+            "items": {
+              "type": "string"
+            },
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "question": {
+            "properties": {
+              "question": {
+                "type": "string"
+              },
+              "options": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "multiple": {
+                "description": "More than one option can be picked",
+                "type": "boolean"
+              },
+              "more": {
+                "description": "Further questions asked at the same time; answer them all in one edit-site message",
+                "items": {
+                  "properties": {
+                    "question": {
+                      "type": "string"
+                    },
+                    "options": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "multiple": {
+                      "type": "boolean"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "elapsed_seconds": {
+            "type": "integer"
+          },
+          "plan": {
+            "items": {
+              "properties": {
+                "step": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "confirmation": {
+            "description": "Set while the build waits for the user to approve something; answer with confirm-action",
+            "properties": {
+              "action": {
+                "type": "string"
+              },
+              "detail": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "follow_ups": {
+            "description": "Things the user still has to do in WebTwizz, like connecting a database or adding a key",
+            "items": {
+              "properties": {
+                "kind": {
+                  "type": "string"
+                },
+                "text": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "checks": {
+            "properties": {
+              "status": {
+                "type": "string"
+              },
+              "passed": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "failed": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "preview_ready": {
+            "description": "Whether the draft preview is running right now",
+            "type": "boolean"
+          },
+          "undo_guard": {
+            "description": "Pass as only_if_latest when undoing, so newer work is never lost",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "compiling": {
+            "description": "The preview is still updating with the finished change",
+            "type": "boolean"
+          },
+          "undo_point_id": {
+            "description": "Pass to restore-version to undo this change; only set while nothing has changed since",
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "name",
+          "preview_url",
+          "open_url",
+          "job_id",
+          "kind",
+          "status",
+          "steps",
+          "files_changed",
+          "elapsed_seconds",
+          "follow_ups",
+          "preview_ready"
+        ]
+      },
+      "annotations": {
+        "title": "Site change",
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "get-site",
+      "title": "Site",
+      "description": "Use this when the user asks how one of their WebTwizz sites is going, what changed, whether it is live, or anything else about its current state. Returns the site's status, its latest build or question, and the recent WebTwizz chat about it.",
+      "inputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id"
+        ]
+      },
+      "annotations": {
+        "title": "Site",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "show-preview",
+      "title": "Site preview",
+      "description": "Use this when the user wants to see or look at one of their WebTwizz sites (\"show me my bakery site\"), or a page of one, for example after a change. Shows the latest draft in a card where they can also click things to change them; pass live to show the published site instead. site_id can be the site's name.",
+      "inputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "path": {
+            "description": "Page to open, like /menu. Defaults to the home page.",
+            "type": "string"
+          },
+          "live": {
+            "description": "Show the published site instead of the latest draft. Only when the user asks for the live version.",
+            "type": "boolean"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id"
+        ]
+      },
+      "outputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "preview_url": {
+            "type": "string"
+          },
+          "live_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "live_frame_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "open_url": {
+            "type": "string"
+          },
+          "view": {
+            "type": "string"
+          },
+          "show_live": {
+            "type": "boolean"
+          },
+          "preview_ready": {
+            "type": "boolean"
+          },
+          "path": {
+            "type": "string"
+          },
+          "frame_url": {
+            "type": "string"
+          },
+          "pages": {
+            "items": {
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "path": {
+                  "type": "string"
+                }
+              },
+              "type": "object",
+              "required": [
+                "name",
+                "path"
+              ]
+            },
+            "type": "array"
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "name",
+          "preview_url",
+          "open_url",
+          "view",
+          "show_live",
+          "preview_ready",
+          "path",
+          "frame_url"
+        ]
+      },
+      "annotations": {
+        "title": "Site preview",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "screenshot-site",
+      "title": "Site screenshot",
+      "description": "Use this to look at one of the user's WebTwizz sites yourself, for example to check a change, review the design or compare it with what they asked for. Returns a picture of a page as visitors see it on a computer or a phone. Shows the latest draft unless live is set.",
+      "inputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "path": {
+            "description": "Page to capture, like /menu. Defaults to the home page.",
+            "type": "string"
+          },
+          "device": {
+            "description": "Desktop by default.",
+            "enum": [
+              "desktop",
+              "phone"
+            ],
+            "type": "string"
+          },
+          "live": {
+            "description": "Capture the published site instead of the latest draft.",
+            "type": "boolean"
+          },
+          "full_page": {
+            "description": "The whole page top to bottom instead of the first screen.",
+            "type": "boolean"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id"
+        ]
+      },
+      "outputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "device": {
+            "type": "string"
+          },
+          "live": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "integer"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "url",
+          "device",
+          "live",
+          "status"
+        ]
+      },
+      "annotations": {
+        "title": "Site screenshot",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "stop-build",
+      "title": "Stop a build",
+      "description": "Use this when the user wants to stop a WebTwizz build or edit that is running. Work done so far is kept.",
+      "inputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id"
+        ]
+      },
+      "outputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "preview_url": {
+            "type": "string"
+          },
+          "live_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "live_frame_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "open_url": {
+            "type": "string"
+          },
+          "job_id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "status": {
+            "description": "queued, starting, building, done, needs_input, failed or stopped",
+            "type": "string"
+          },
+          "stage": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "latest": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "steps": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "files_changed": {
+            "type": "integer"
+          },
+          "summary": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "choices": {
+            "description": "When the summary ends by offering numbered options: those options, for the user to pick one",
+            "items": {
+              "type": "string"
+            },
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "question": {
+            "properties": {
+              "question": {
+                "type": "string"
+              },
+              "options": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "multiple": {
+                "description": "More than one option can be picked",
+                "type": "boolean"
+              },
+              "more": {
+                "description": "Further questions asked at the same time; answer them all in one edit-site message",
+                "items": {
+                  "properties": {
+                    "question": {
+                      "type": "string"
+                    },
+                    "options": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "multiple": {
+                      "type": "boolean"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "elapsed_seconds": {
+            "type": "integer"
+          },
+          "plan": {
+            "items": {
+              "properties": {
+                "step": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "confirmation": {
+            "description": "Set while the build waits for the user to approve something; answer with confirm-action",
+            "properties": {
+              "action": {
+                "type": "string"
+              },
+              "detail": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "follow_ups": {
+            "description": "Things the user still has to do in WebTwizz, like connecting a database or adding a key",
+            "items": {
+              "properties": {
+                "kind": {
+                  "type": "string"
+                },
+                "text": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "checks": {
+            "properties": {
+              "status": {
+                "type": "string"
+              },
+              "passed": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "failed": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "preview_ready": {
+            "description": "Whether the draft preview is running right now",
+            "type": "boolean"
+          },
+          "undo_guard": {
+            "description": "Pass as only_if_latest when undoing, so newer work is never lost",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "compiling": {
+            "description": "The preview is still updating with the finished change",
+            "type": "boolean"
+          },
+          "undo_point_id": {
+            "description": "Pass to restore-version to undo this change; only set while nothing has changed since",
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "name",
+          "preview_url",
+          "open_url",
+          "job_id",
+          "kind",
+          "status",
+          "steps",
+          "files_changed",
+          "elapsed_seconds",
+          "follow_ups",
+          "preview_ready"
+        ]
+      },
+      "annotations": {
+        "title": "Stop a build",
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "confirm-action",
+      "title": "Confirm a step",
+      "description": "Use this only after the user clearly answers what a WebTwizz build is waiting on (its card shows \"WebTwizz needs your OK\"), such as running a command, deleting database data, a Stripe change or publishing. approve true goes ahead; false skips that step and the build carries on without it.",
+      "inputSchema": {
+        "properties": {
+          "job_id": {
+            "description": "The job_id from the build card",
+            "type": "string"
+          },
+          "approve": {
+            "type": "boolean"
+          }
+        },
+        "type": "object",
+        "required": [
+          "job_id",
+          "approve"
+        ]
+      },
+      "outputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "preview_url": {
+            "type": "string"
+          },
+          "live_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "live_frame_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "open_url": {
+            "type": "string"
+          },
+          "job_id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "status": {
+            "description": "queued, starting, building, done, needs_input, failed or stopped",
+            "type": "string"
+          },
+          "stage": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "latest": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "steps": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "files_changed": {
+            "type": "integer"
+          },
+          "summary": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "choices": {
+            "description": "When the summary ends by offering numbered options: those options, for the user to pick one",
+            "items": {
+              "type": "string"
+            },
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "question": {
+            "properties": {
+              "question": {
+                "type": "string"
+              },
+              "options": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "multiple": {
+                "description": "More than one option can be picked",
+                "type": "boolean"
+              },
+              "more": {
+                "description": "Further questions asked at the same time; answer them all in one edit-site message",
+                "items": {
+                  "properties": {
+                    "question": {
+                      "type": "string"
+                    },
+                    "options": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "multiple": {
+                      "type": "boolean"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "elapsed_seconds": {
+            "type": "integer"
+          },
+          "plan": {
+            "items": {
+              "properties": {
+                "step": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "confirmation": {
+            "description": "Set while the build waits for the user to approve something; answer with confirm-action",
+            "properties": {
+              "action": {
+                "type": "string"
+              },
+              "detail": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "follow_ups": {
+            "description": "Things the user still has to do in WebTwizz, like connecting a database or adding a key",
+            "items": {
+              "properties": {
+                "kind": {
+                  "type": "string"
+                },
+                "text": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "checks": {
+            "properties": {
+              "status": {
+                "type": "string"
+              },
+              "passed": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "failed": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "preview_ready": {
+            "description": "Whether the draft preview is running right now",
+            "type": "boolean"
+          },
+          "undo_guard": {
+            "description": "Pass as only_if_latest when undoing, so newer work is never lost",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "compiling": {
+            "description": "The preview is still updating with the finished change",
+            "type": "boolean"
+          },
+          "undo_point_id": {
+            "description": "Pass to restore-version to undo this change; only set while nothing has changed since",
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "name",
+          "preview_url",
+          "open_url",
+          "job_id",
+          "kind",
+          "status",
+          "steps",
+          "files_changed",
+          "elapsed_seconds",
+          "follow_ups",
+          "preview_ready"
+        ]
+      },
+      "annotations": {
+        "title": "Confirm a step",
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "publish-site",
+      "title": "Publishing",
+      "description": "Use this when the user wants their WebTwizz site live on the web. The card first asks the user to confirm, then publishes the latest saved version to its public address and shows progress until it is live.",
+      "inputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "confirm": {
+            "description": "Set only by the WebTwizz card when the user presses Publish. Leave out.",
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id"
+        ]
+      },
+      "outputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "preview_url": {
+            "type": "string"
+          },
+          "live_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "live_frame_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "open_url": {
+            "type": "string"
+          },
+          "job_id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "status": {
+            "description": "queued, starting, building, done, needs_input, failed or stopped",
+            "type": "string"
+          },
+          "stage": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "latest": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "steps": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "files_changed": {
+            "type": "integer"
+          },
+          "summary": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "choices": {
+            "description": "When the summary ends by offering numbered options: those options, for the user to pick one",
+            "items": {
+              "type": "string"
+            },
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "question": {
+            "properties": {
+              "question": {
+                "type": "string"
+              },
+              "options": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "multiple": {
+                "description": "More than one option can be picked",
+                "type": "boolean"
+              },
+              "more": {
+                "description": "Further questions asked at the same time; answer them all in one edit-site message",
+                "items": {
+                  "properties": {
+                    "question": {
+                      "type": "string"
+                    },
+                    "options": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "multiple": {
+                      "type": "boolean"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "elapsed_seconds": {
+            "type": "integer"
+          },
+          "plan": {
+            "items": {
+              "properties": {
+                "step": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "confirmation": {
+            "description": "Set while the build waits for the user to approve something; answer with confirm-action",
+            "properties": {
+              "action": {
+                "type": "string"
+              },
+              "detail": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "follow_ups": {
+            "description": "Things the user still has to do in WebTwizz, like connecting a database or adding a key",
+            "items": {
+              "properties": {
+                "kind": {
+                  "type": "string"
+                },
+                "text": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "checks": {
+            "properties": {
+              "status": {
+                "type": "string"
+              },
+              "passed": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "failed": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "preview_ready": {
+            "description": "Whether the draft preview is running right now",
+            "type": "boolean"
+          },
+          "undo_guard": {
+            "description": "Pass as only_if_latest when undoing, so newer work is never lost",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "compiling": {
+            "description": "The preview is still updating with the finished change",
+            "type": "boolean"
+          },
+          "undo_point_id": {
+            "description": "Pass to restore-version to undo this change; only set while nothing has changed since",
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "name",
+          "preview_url",
+          "open_url",
+          "job_id",
+          "kind",
+          "status",
+          "steps",
+          "files_changed",
+          "elapsed_seconds",
+          "follow_ups",
+          "preview_ready"
+        ]
+      },
+      "annotations": {
+        "title": "Publishing",
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "unpublish-site",
+      "title": "Unpublish",
+      "description": "Use this when the user wants to take their published WebTwizz site offline. The site stays in WebTwizz as a draft and can be published again later; custom domains stop pointing at it until then.",
+      "inputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id"
+        ]
+      },
+      "outputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "preview_url": {
+            "type": "string"
+          },
+          "live_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "live_frame_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "open_url": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "name",
+          "preview_url",
+          "open_url"
+        ]
+      },
+      "annotations": {
+        "title": "Unpublish",
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "update-site",
+      "title": "Site settings",
+      "description": "Use this when the user wants to rename one of their WebTwizz projects, or choose who can see the published site: anyone (public), people with a password, or only people in their WebTwizz workspace (private). Visibility applies the next time the site is published. Page titles, descriptions and other SEO live in the site itself, so change those with edit-site.",
+      "inputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "name": {
+            "description": "The new project name.",
+            "type": "string"
+          },
+          "visibility": {
+            "enum": [
+              "public",
+              "password",
+              "private"
+            ],
+            "type": "string"
+          },
+          "password": {
+            "description": "For password visibility: the password visitors will need, at least 4 characters. Only send it when the user gives one.",
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id"
+        ]
+      },
+      "outputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "preview_url": {
+            "type": "string"
+          },
+          "live_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "live_frame_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "open_url": {
+            "type": "string"
+          },
+          "visibility": {
+            "type": "string"
+          },
+          "publish_needed": {
+            "description": "True when the live site still has the old visibility until it is published again",
+            "type": "boolean"
+          },
+          "password_needed": {
+            "description": "True when the user still has to set the visitors' password in WebTwizz",
+            "type": "boolean"
+          },
+          "settings_url": {
+            "description": "Where the user sets the password",
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "name",
+          "preview_url",
+          "open_url",
+          "visibility",
+          "publish_needed"
+        ]
+      },
+      "annotations": {
+        "title": "Site settings",
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "duplicate-site",
+      "title": "Duplicate a site",
+      "description": "Use this when the user wants a copy of one of their WebTwizz sites, to try ideas without touching the original or to start a similar site. Makes a new, unpublished project with the same pages, design and content, the way Duplicate does on the WebTwizz dashboard; the original is not changed. Each call makes another copy.",
+      "inputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "name": {
+            "description": "A name for the copy. Leave out to call it \"<original name> (Copy)\".",
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id"
+        ]
+      },
+      "annotations": {
+        "title": "Duplicate a site",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "set-site-address",
+      "title": "Site address",
+      "description": "Use this when the user wants to change their WebTwizz site's free address, the name before .webtwizz.app. A live site moves to the new address and the old one keeps redirecting for a while.",
+      "inputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "name": {
+            "description": "The new name, like crumb-bakery for crumb-bakery.webtwizz.app. Lowercase letters, numbers and dashes.",
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "name"
+        ]
+      },
+      "outputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "is_live": {
+            "type": "boolean"
+          },
+          "address": {
+            "description": "The site's webtwizz.app address",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "address_switching": {
+            "type": "boolean"
+          },
+          "previous_addresses": {
+            "description": "Old addresses that still redirect for a while",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "domains": {
+            "items": {
+              "properties": {
+                "domain": {
+                  "type": "string"
+                },
+                "status": {
+                  "description": "pending (waiting for the DNS records), misconfigured (records point elsewhere), verify (needs the TXT record), ready (connected, live once the site is published), live, or error",
+                  "type": "string"
+                },
+                "records": {
+                  "items": {
+                    "properties": {
+                      "type": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "ok": {
+                        "type": "boolean"
+                      }
+                    },
+                    "type": "object",
+                    "required": [
+                      "type",
+                      "name",
+                      "value",
+                      "ok"
+                    ]
+                  },
+                  "type": "array"
+                },
+                "redirect": {
+                  "description": "A companion address, usually www, that redirects to this one",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "problem": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "type": "object",
+              "required": [
+                "domain",
+                "status",
+                "records"
+              ]
+            },
+            "type": "array"
+          },
+          "custom_domains_allowed": {
+            "type": "boolean"
+          },
+          "note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "is_live",
+          "address_switching",
+          "previous_addresses",
+          "domains",
+          "custom_domains_allowed"
+        ]
+      },
+      "annotations": {
+        "title": "Site address",
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "connect-domain",
+      "title": "Connect a domain",
+      "description": "Use this when the user asks to connect a domain they already own, like yourbrand.com, to their WebTwizz site. Adds it and returns the DNS records to set where the domain was bought; check-domain then confirms it.",
+      "inputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "domain": {
+            "description": "The domain the user owns, like yourbrand.com or shop.yourbrand.com.",
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "domain"
+        ]
+      },
+      "outputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "is_live": {
+            "type": "boolean"
+          },
+          "address": {
+            "description": "The site's webtwizz.app address",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "address_switching": {
+            "type": "boolean"
+          },
+          "previous_addresses": {
+            "description": "Old addresses that still redirect for a while",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "domains": {
+            "items": {
+              "properties": {
+                "domain": {
+                  "type": "string"
+                },
+                "status": {
+                  "description": "pending (waiting for the DNS records), misconfigured (records point elsewhere), verify (needs the TXT record), ready (connected, live once the site is published), live, or error",
+                  "type": "string"
+                },
+                "records": {
+                  "items": {
+                    "properties": {
+                      "type": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "ok": {
+                        "type": "boolean"
+                      }
+                    },
+                    "type": "object",
+                    "required": [
+                      "type",
+                      "name",
+                      "value",
+                      "ok"
+                    ]
+                  },
+                  "type": "array"
+                },
+                "redirect": {
+                  "description": "A companion address, usually www, that redirects to this one",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "problem": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "type": "object",
+              "required": [
+                "domain",
+                "status",
+                "records"
+              ]
+            },
+            "type": "array"
+          },
+          "custom_domains_allowed": {
+            "type": "boolean"
+          },
+          "note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "is_live",
+          "address_switching",
+          "previous_addresses",
+          "domains",
+          "custom_domains_allowed"
+        ]
+      },
+      "annotations": {
+        "title": "Connect a domain",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "check-domain",
+      "title": "Check a domain",
+      "description": "Use this when the user has set their DNS records, or asks whether their domain works yet. Checks the site's custom domains again and returns each one's status and which records are still missing.",
+      "inputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "domain": {
+            "description": "One domain to check. Leave out to check them all.",
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id"
+        ]
+      },
+      "outputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "is_live": {
+            "type": "boolean"
+          },
+          "address": {
+            "description": "The site's webtwizz.app address",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "address_switching": {
+            "type": "boolean"
+          },
+          "previous_addresses": {
+            "description": "Old addresses that still redirect for a while",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "domains": {
+            "items": {
+              "properties": {
+                "domain": {
+                  "type": "string"
+                },
+                "status": {
+                  "description": "pending (waiting for the DNS records), misconfigured (records point elsewhere), verify (needs the TXT record), ready (connected, live once the site is published), live, or error",
+                  "type": "string"
+                },
+                "records": {
+                  "items": {
+                    "properties": {
+                      "type": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "ok": {
+                        "type": "boolean"
+                      }
+                    },
+                    "type": "object",
+                    "required": [
+                      "type",
+                      "name",
+                      "value",
+                      "ok"
+                    ]
+                  },
+                  "type": "array"
+                },
+                "redirect": {
+                  "description": "A companion address, usually www, that redirects to this one",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "problem": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "type": "object",
+              "required": [
+                "domain",
+                "status",
+                "records"
+              ]
+            },
+            "type": "array"
+          },
+          "custom_domains_allowed": {
+            "type": "boolean"
+          },
+          "note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "is_live",
+          "address_switching",
+          "previous_addresses",
+          "domains",
+          "custom_domains_allowed"
+        ]
+      },
+      "annotations": {
+        "title": "Check a domain",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "list-sites",
+      "title": "Your sites",
+      "description": "Use this when the user asks which WebTwizz sites they have, or wants to pick one to work on. Shows their most recently updated sites with a picture of each, newest first, a page at a time; search narrows them by name. When the user names a site they want to see, use show-preview with its name instead.",
+      "inputSchema": {
+        "properties": {
+          "workspace_id": {
+            "description": "Only sites in this workspace, from get-account. Leave out for all of them.",
+            "type": "string"
+          },
+          "search": {
+            "description": "Only sites whose name contains this",
+            "type": "string"
+          },
+          "page": {
+            "description": "Which page of sites, 1 by default",
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "outputSchema": {
+        "properties": {
+          "view": {
+            "type": "string"
+          },
+          "sites": {
+            "items": {
+              "properties": {
+                "site_id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "workspace": {
+                  "type": "string"
+                },
+                "is_live": {
+                  "type": "boolean"
+                },
+                "live_url": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "open_url": {
+                  "type": "string"
+                },
+                "image_url": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "updated": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "type": "object",
+              "required": [
+                "site_id",
+                "name",
+                "workspace",
+                "is_live",
+                "open_url"
+              ]
+            },
+            "type": "array"
+          },
+          "search": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "page": {
+            "type": "integer"
+          },
+          "total": {
+            "type": "integer"
+          },
+          "more": {
+            "type": "boolean"
+          }
+        },
+        "type": "object",
+        "required": [
+          "view",
+          "sites",
+          "page",
+          "total",
+          "more"
+        ]
+      },
+      "annotations": {
+        "title": "Your sites",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "list-templates",
+      "title": "Templates",
+      "description": "Use this when the user wants to start from a ready-made design, or asks what WebTwizz templates there are. Shows matching templates with a picture and a live demo, a page at a time; show-template opens one, and its slug goes to create-site as template. Works before the user signs in.",
+      "inputSchema": {
+        "properties": {
+          "search": {
+            "description": "Words about the kind of site, like bakery, portfolio or saas",
+            "type": "string"
+          },
+          "category": {
+            "enum": [
+              "websites",
+              "apps",
+              "games"
+            ],
+            "type": "string"
+          },
+          "page": {
+            "description": "Which page of templates, 1 by default",
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "outputSchema": {
+        "properties": {
+          "view": {
+            "type": "string"
+          },
+          "note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "signed_in": {
+            "type": "boolean"
+          },
+          "search": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "category": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "page": {
+            "type": "integer"
+          },
+          "more": {
+            "type": "boolean"
+          },
+          "templates": {
+            "items": {
+              "properties": {
+                "template": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "tagline": {
+                  "type": "string"
+                },
+                "category": {
+                  "type": "string"
+                },
+                "image_url": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "demo_url": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "type": "object",
+              "required": [
+                "template",
+                "name",
+                "tagline",
+                "category"
+              ]
+            },
+            "type": "array"
+          }
+        },
+        "type": "object",
+        "required": [
+          "view",
+          "signed_in",
+          "page",
+          "more",
+          "templates"
+        ]
+      },
+      "annotations": {
+        "title": "Templates",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "show-template",
+      "title": "Template",
+      "description": "Use this when the user wants a closer look at one WebTwizz template: what it is for, its pages, a large picture and a link to its live demo. Takes a slug from list-templates. Works before the user signs in; create-site with the slug as template starts a site from it.",
+      "inputSchema": {
+        "properties": {
+          "template": {
+            "description": "A template slug from list-templates",
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "template"
+        ]
+      },
+      "outputSchema": {
+        "properties": {
+          "view": {
+            "type": "string"
+          },
+          "signed_in": {
+            "type": "boolean"
+          },
+          "template": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "tagline": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "pages": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "image_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "demo_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "view",
+          "signed_in",
+          "template",
+          "name",
+          "tagline",
+          "description",
+          "category",
+          "pages"
+        ]
+      },
+      "annotations": {
+        "title": "Template",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "list-versions",
+      "title": "Versions",
+      "description": "Use this when the user wants to undo changes or go back to an earlier version of a WebTwizz site. Lists the site's saved versions, newest first, to pick one for restore-version.",
+      "inputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id"
+        ]
+      },
+      "annotations": {
+        "title": "Versions",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "restore-version",
+      "title": "Restore a version",
+      "description": "Use this after list-versions when the user picks an earlier version of their WebTwizz site to go back to. The current version stays in the history, so it can be restored again later.",
+      "inputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "point_id": {
+            "description": "A point_id from list-versions.",
+            "type": "string"
+          },
+          "only_if_latest": {
+            "description": "Only restore if this is still the latest version (used by the card's Undo).",
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "point_id"
+        ]
+      },
+      "annotations": {
+        "title": "Restore a version",
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "list-site-data",
+      "title": "Site data",
+      "description": "Use this when the user asks what data their WebTwizz site has, or before reading or changing it. Lists the site's database tables with their columns and row counts, and the content collections kept in the site's files.",
+      "inputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id"
+        ]
+      },
+      "outputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "database": {
+            "description": "supabase, postgres, mysql, mongodb or google-sheets; null when the site has no database",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "tables": {
+            "items": {
+              "properties": {
+                "table": {
+                  "type": "string"
+                },
+                "columns": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "rows": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                }
+              },
+              "type": "object",
+              "required": [
+                "table",
+                "columns"
+              ]
+            },
+            "type": "array"
+          },
+          "content_collections": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "open_url": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "name",
+          "tables",
+          "content_collections",
+          "open_url",
+          "note"
+        ]
+      },
+      "annotations": {
+        "title": "Site data",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "get-site-data",
+      "title": "Site records",
+      "description": "Use this when the user wants to see records in one of their WebTwizz site's database tables, like bookings, orders, sign-ups or products. Returns a page of rows; each row's row_id is what update-site-data and delete-site-data take.",
+      "inputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "table": {
+            "description": "A table name from list-site-data",
+            "type": "string"
+          },
+          "page": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "page_size": {
+            "description": "Rows per page, 20 by default",
+            "minimum": 1,
+            "maximum": 50,
+            "type": "integer"
+          },
+          "search": {
+            "description": "Only rows containing this text",
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "table"
+        ]
+      },
+      "outputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "table": {
+            "type": "string"
+          },
+          "rows": {
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "page": {
+            "type": "integer"
+          },
+          "total": {
+            "type": "integer"
+          },
+          "total_pages": {
+            "type": "integer"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "table",
+          "rows",
+          "page",
+          "total",
+          "total_pages"
+        ]
+      },
+      "annotations": {
+        "title": "Site records",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "add-site-data",
+      "title": "Add a record",
+      "description": "Use this when the user wants to add a record to one of their WebTwizz site's database tables, like a new product or a booking. Adds it to the live data right away, without a build. Use edit-site instead for new tables or columns, or for content kept in the site's files. Adding a record twice adds two records.",
+      "inputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "table": {
+            "description": "A table name from list-site-data",
+            "type": "string"
+          },
+          "data": {
+            "description": "Column names and their values",
+            "type": "object"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "table",
+          "data"
+        ]
+      },
+      "outputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "table": {
+            "type": "string"
+          },
+          "row": {
+            "type": [
+              "object",
+              "null"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "table"
+        ]
+      },
+      "annotations": {
+        "title": "Add a record",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "update-site-data",
+      "title": "Change a record",
+      "description": "Use this when the user wants to change a record in one of their WebTwizz site's database tables, like a product's price or a booking's time. Changes the live data right away, without a build, replacing the old values of the columns given. Use edit-site instead for new tables or columns, or for content kept in the site's files.",
+      "inputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "table": {
+            "description": "A table name from list-site-data",
+            "type": "string"
+          },
+          "row_id": {
+            "description": "The row_id from get-site-data",
+            "type": "string"
+          },
+          "data": {
+            "description": "Column names and their new values",
+            "type": "object"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "table",
+          "row_id",
+          "data"
+        ]
+      },
+      "outputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "table": {
+            "type": "string"
+          },
+          "row": {
+            "type": [
+              "object",
+              "null"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "table"
+        ]
+      },
+      "annotations": {
+        "title": "Change a record",
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "delete-site-data",
+      "title": "Delete records",
+      "description": "Use this when the user wants to delete records from one of their WebTwizz site's database tables, like removing a booking or an old product. Deletes them from the live data right away, without a build. Use edit-site instead to remove a table or column.",
+      "inputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "table": {
+            "description": "A table name from list-site-data",
+            "type": "string"
+          },
+          "row_ids": {
+            "description": "row_id values from get-site-data",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "table",
+          "row_ids"
+        ]
+      },
+      "outputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "table": {
+            "type": "string"
+          },
+          "deleted": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "table"
+        ]
+      },
+      "annotations": {
+        "title": "Delete records",
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "list-connectors",
+      "title": "Connectors",
+      "description": "Use this when the user asks which services their WebTwizz account or site is connected to, or wants to add one: Supabase, Google Sheets, Stripe, Google Analytics, PostHog, Sentry, Resend, Loops, Intercom, OpenAI, Anthropic or GitHub. Lists each connector, the accounts already connected, which the site uses, and a link to connect a new account in WebTwizz.",
+      "inputSchema": {
+        "properties": {
+          "site_id": {
+            "description": "The site the user is working on, so the list says which accounts it uses and connect links open that site.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Connectors",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "use-connector",
+      "title": "Use a connector",
+      "description": "Use this when the user wants one of their WebTwizz sites to use an account they already connected, like their Stripe, Supabase or GitHub account. Takes a connection_id from list-connectors. Some connectors need one more choice in WebTwizz afterwards, such as which project, spreadsheet or repository; the result says so and links there.",
+      "inputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "connection_id": {
+            "description": "From list-connectors",
+            "type": "string"
+          },
+          "connector": {
+            "description": "The connector slug from list-connectors, like stripe or google-sheets",
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "connection_id",
+          "connector"
+        ]
+      },
+      "annotations": {
+        "title": "Use a connector",
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "get-connector-overview",
+      "title": "Connected service",
+      "description": "Use this when the user asks how something connected to their WebTwizz site is doing: visitors and top pages (google-analytics, posthog), sales and products (stripe), sign-ups and tables (supabase), errors (sentry), emails and domains (resend), conversations (intercom), lists (loops), the spreadsheet (google-sheets), commits and pull requests (github), or whether an AI key works (openai, anthropic).",
+      "inputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "connector": {
+            "enum": [
+              "webtwizz",
+              "supabase",
+              "google-sheets",
+              "stripe",
+              "google-analytics",
+              "posthog",
+              "sentry",
+              "resend",
+              "loops",
+              "intercom",
+              "openai",
+              "anthropic",
+              "gemini",
+              "openrouter",
+              "groq",
+              "github",
+              "calcom",
+              "elevenlabs",
+              "google-calendar",
+              "google-search-console",
+              "hubspot",
+              "twilio",
+              "whatsapp",
+              "razorpay",
+              "paystack",
+              "paypal",
+              "mcp-notion",
+              "mcp-linear",
+              "mcp-cloudflare",
+              "mcp-zapier",
+              "mcp-make",
+              "mcp-monday",
+              "mcp-clickup",
+              "mcp-miro",
+              "mcp-webflow",
+              "mcp-wix",
+              "mcp-klaviyo",
+              "mcp-calendly",
+              "mcp-todoist",
+              "mcp-context7",
+              "mcp-exa",
+              "mcp-firecrawl",
+              "mcp-huggingface",
+              "mcp-microsoft-learn",
+              "mcp"
+            ],
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "connector"
+        ]
+      },
+      "annotations": {
+        "title": "Connected service",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "get-github-status",
+      "title": "GitHub status",
+      "description": "Use this when the user asks about GitHub for one of their WebTwizz sites: whether it is linked to a repository, if GitHub has changes the site does not, the last push, recent commits and open pull requests. When nothing is linked yet it says how to connect, and lists their repositories once GitHub is connected.",
+      "inputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id"
+        ]
+      },
+      "outputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "state": {
+            "description": "linked, needs_repo (GitHub is connected but no repository is picked) or not_connected",
+            "type": "string"
+          },
+          "repo": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "branch": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "repo_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "has_pushed": {
+            "description": "Whether this site was ever pushed to the repository. It does not say whether GitHub has the latest changes; push-to-github sends them and says synced when there was nothing new.",
+            "type": "boolean"
+          },
+          "github_has_newer_changes": {
+            "description": "GitHub has commits the site does not; pull-from-github brings them in",
+            "type": "boolean"
+          },
+          "last_push": {
+            "description": "The last push: its status, branch and when",
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "recent_commits": {
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "open_pull_requests": {
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "your_repositories": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "note": {
+            "type": "string"
+          },
+          "connect_url": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "state"
+        ]
+      },
+      "annotations": {
+        "title": "GitHub status",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "push-to-github",
+      "title": "Push to GitHub",
+      "description": "Use this when the user wants their WebTwizz site's code on GitHub. Commits and pushes the saved site to its repository; each call with new changes adds another commit. Other git work, like undoing a push, goes to edit-site. The first time, pass repo (an existing repository from get-github-status) or create_repo (a name for a new private repository).",
+      "inputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "repo": {
+            "description": "An existing repository, like owner/name, from get-github-status",
+            "type": "string"
+          },
+          "create_repo": {
+            "description": "A name for a new private repository: letters, numbers, dots, dashes and underscores",
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id"
+        ]
+      },
+      "outputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "status": {
+            "description": "pushed, synced (nothing new to push), behind, diverged (pushed to a webtwizz-sync branch instead) or error",
+            "type": "string"
+          },
+          "repo": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "repo_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "branch": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "commit": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "files": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "message": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "status"
+        ]
+      },
+      "annotations": {
+        "title": "Push to GitHub",
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "pull-from-github",
+      "title": "GitHub sync",
+      "description": "Use this when the user changed their WebTwizz site's code on GitHub and wants those changes in WebTwizz. The site's WebTwizz AI pulls them in and checks the site still runs; the card follows it like an edit.",
+      "inputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id"
+        ]
+      },
+      "outputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "preview_url": {
+            "type": "string"
+          },
+          "live_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "live_frame_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "open_url": {
+            "type": "string"
+          },
+          "job_id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "status": {
+            "description": "queued, starting, building, done, needs_input, failed or stopped",
+            "type": "string"
+          },
+          "stage": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "latest": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "steps": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "files_changed": {
+            "type": "integer"
+          },
+          "summary": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "choices": {
+            "description": "When the summary ends by offering numbered options: those options, for the user to pick one",
+            "items": {
+              "type": "string"
+            },
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "question": {
+            "properties": {
+              "question": {
+                "type": "string"
+              },
+              "options": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "multiple": {
+                "description": "More than one option can be picked",
+                "type": "boolean"
+              },
+              "more": {
+                "description": "Further questions asked at the same time; answer them all in one edit-site message",
+                "items": {
+                  "properties": {
+                    "question": {
+                      "type": "string"
+                    },
+                    "options": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "multiple": {
+                      "type": "boolean"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "elapsed_seconds": {
+            "type": "integer"
+          },
+          "plan": {
+            "items": {
+              "properties": {
+                "step": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "confirmation": {
+            "description": "Set while the build waits for the user to approve something; answer with confirm-action",
+            "properties": {
+              "action": {
+                "type": "string"
+              },
+              "detail": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "follow_ups": {
+            "description": "Things the user still has to do in WebTwizz, like connecting a database or adding a key",
+            "items": {
+              "properties": {
+                "kind": {
+                  "type": "string"
+                },
+                "text": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "checks": {
+            "properties": {
+              "status": {
+                "type": "string"
+              },
+              "passed": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "failed": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "preview_ready": {
+            "description": "Whether the draft preview is running right now",
+            "type": "boolean"
+          },
+          "undo_guard": {
+            "description": "Pass as only_if_latest when undoing, so newer work is never lost",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "compiling": {
+            "description": "The preview is still updating with the finished change",
+            "type": "boolean"
+          },
+          "undo_point_id": {
+            "description": "Pass to restore-version to undo this change; only set while nothing has changed since",
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "name",
+          "preview_url",
+          "open_url",
+          "job_id",
+          "kind",
+          "status",
+          "steps",
+          "files_changed",
+          "elapsed_seconds",
+          "follow_ups",
+          "preview_ready"
+        ]
+      },
+      "annotations": {
+        "title": "GitHub sync",
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "download-code",
+      "title": "Download code",
+      "description": "Use this when the user wants the source code of their WebTwizz site as a zip file, for example to host it elsewhere or open it in an editor. Returns a download link the user can open for the next 30 minutes.",
+      "inputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id"
+        ]
+      },
+      "outputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "download_url": {
+            "type": "string"
+          },
+          "expires_in_minutes": {
+            "type": "integer"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "download_url",
+          "expires_in_minutes"
+        ]
+      },
+      "annotations": {
+        "title": "Download code",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "list-env-variables",
+      "title": "Site settings",
+      "description": "Use this when the user asks which settings or keys their WebTwizz site has, like API keys and environment variables. Lists each variable's name, whether it is set, and which connector manages it. Values of public NEXT_PUBLIC_ variables are shown; secret values never are.",
+      "inputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id"
+        ]
+      },
+      "annotations": {
+        "title": "Site settings",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "set-env-variable",
+      "title": "Set a site setting",
+      "description": "Use this when one of the user's WebTwizz sites needs an environment variable. Public NEXT_PUBLIC_ values are saved right away. Secret keys are never taken in chat: leave value out and this adds the variable as a placeholder and returns the link where the user pastes the real key in WebTwizz. Services WebTwizz connects, like Stripe, Supabase or Resend, get their keys through list-connectors and use-connector instead.",
+      "inputSchema": {
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "name": {
+            "description": "Like NEXT_PUBLIC_CONTACT_EMAIL or MAILCHIMP_API_KEY",
+            "type": "string"
+          },
+          "value": {
+            "description": "Only for public NEXT_PUBLIC_ variables. Leave out for secrets.",
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "site_id",
+          "name"
+        ]
+      },
+      "annotations": {
+        "title": "Set a site setting",
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "search-help",
+      "title": "Help docs",
+      "description": "Use this when the user asks how to do something in WebTwizz, how a WebTwizz feature works, or about plans and limits. Searches the WebTwizz docs and returns the best matching pages with the lines that match and links; call it again with a page title to read one in full.",
+      "inputSchema": {
+        "properties": {
+          "question": {
+            "description": "What the user wants to know, in their words",
+            "type": "string"
+          },
+          "page": {
+            "description": "A page title from an earlier help result, to read that page in full",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "annotations": {
+        "title": "Help docs",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "get-account",
+      "title": "Your account",
+      "description": "Use this when the user asks which WebTwizz account is connected, which plan it is on, how many WebTwizz credits are left, or which workspaces they have. Builds and edits use credits; data, domain and preview tools do not.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      },
+      "outputSchema": {
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "plan": {
+            "type": "string"
+          },
+          "credits": {
+            "description": "WebTwizz credits left",
+            "type": "number"
+          },
+          "workspaces": {
+            "items": {
+              "properties": {
+                "workspace_id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "role": {
+                  "type": "string"
+                },
+                "sites": {
+                  "type": "integer"
+                }
+              },
+              "type": "object",
+              "required": [
+                "workspace_id",
+                "name",
+                "role",
+                "sites"
+              ]
+            },
+            "type": "array"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "email",
+          "plan",
+          "credits",
+          "workspaces"
+        ]
+      },
+      "annotations": {
+        "title": "Your account",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      }
+    }
+  ]
+}
